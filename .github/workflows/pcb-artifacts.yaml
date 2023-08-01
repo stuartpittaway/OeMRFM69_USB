@@ -43,43 +43,43 @@ jobs:
       run: |
         export DDDD=$(date)
         echo "DDDD = ${DDDD}"
-        sed -i "s!<<date>>!${DDDD}!" ./OeMRFM69_USB/PCB/OeMRFM69_USB.kicad_pcb
+        sed -i "s!<<date>>!${DDDD}!" ./PCB/OeMRFM69_USB.kicad_pcb
   
     - name: Update the PCBs on default branch with git hash
       if: steps.branch-name.outputs.is_default == 'true'
       run: |
         export COMMIT=$(git rev-parse --short HEAD)
         echo "COMMIT = ${COMMIT}"
-        sed -i "s!<<hash>>!${COMMIT}!" ./OeMRFM69_USB/PCB/OeMRFM69_USB.kicad_pcb
+        sed -i "s!<<hash>>!${COMMIT}!" ./PCB/OeMRFM69_USB.kicad_pcb
 
     - name: Update the PCBs with the git hash and BETA.
       if: steps.branch-name.outputs.is_default != 'true'
       run: |
         export COMMIT=$(git rev-parse --short HEAD)
         echo "COMMIT = ${COMMIT}"
-        sed -i "s!<<hash>>!BETA-${COMMIT}!" ./OeMRFM69_USB/PCB/OeMRFM69_USB.kicad_pcb
+        sed -i "s!<<hash>>!BETA-${COMMIT}!" ./PCB/OeMRFM69_USB.kicad_pcb
 
     - name: Remove existing export folder
       run: |
-        rm -rf ./OeMRFM69_USB/PCB/export/
+        rm -rf ./PCB/export/
 
     - name: Run KiBot
       uses: INTI-CMNB/KiBot@v2_k7
       with:
-        config: ./OeMRFM69_USB/PCB/config-2layer.kibot.yaml
-        dir: ./OeMRFM69_USB/PCB/export
-        schema: './OeMRFM69_USB/PCB/OeMRFM69_USB.kicad_sch'
-        board: './OeMRFM69_USB/PCB/OeMRFM69_USB.kicad_pcb'
+        config: ./PCB/config-2layer.kibot.yaml
+        dir: ./PCB/export
+        schema: './PCB/OeMRFM69_USB.kicad_sch'
+        board: './PCB/OeMRFM69_USB.kicad_pcb'
 
     # Splitting this out to ensure a failed kibot run will mark a check as failed.
     - name: Prepare Gerbers artifact
       run: |
-        cd ./OeMRFM69_USB/PCB/export/gerbers
+        cd ./PCB/export/gerbers
         zip -r -j ../OeMRFM69_USB_gerbers.zip *        
 
     - name: Remove gerber folder
       run: |
-        rm -rf ./OeMRFM69_USB/PCB/export/gerbers
+        rm -rf ./PCB/export/gerbers
         ls -R
 
     - name: upload artifacts
@@ -88,4 +88,4 @@ jobs:
       with:
         name: OeMRFM69_USB_gerbers
         path: |
-          ./OeMRFM69_USB/PCB/export/OeMRFM69_USB_gerbers.zip
+          ./PCB/export/OeMRFM69_USB_gerbers.zip
