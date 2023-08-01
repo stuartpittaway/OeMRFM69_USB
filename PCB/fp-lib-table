@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "HopeRF")(type "KiCad")(uri "${KIPRJMOD}/HopeRF.pretty")(options "")(descr ""))
+  (lib (name "USB-C-Power-tester")(type "KiCad")(uri "${KIPRJMOD}/USB-C-Power-tester.pretty")(options "")(descr ""))
+)
