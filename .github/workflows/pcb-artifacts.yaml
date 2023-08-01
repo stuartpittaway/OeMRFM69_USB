@@ -3,13 +3,13 @@ name: pcb-artifacts
 on:
   push:
     paths:
-    - 'OeMRFM69_USB/PCB/**.kicad_sch'
-    - 'OeMRFM69_USB/PCB/**.kicad_pcb'
+    - 'PCB/**.kicad_sch'
+    - 'PCB/**.kicad_pcb'
     - '.github/workflows/pcb-artifacts.yaml'
   pull_request:
     paths:
-    - 'OeMRFM69_USB/PCB/**.kicad_sch'
-    - 'OeMRFM69_USB/PCB/**.kicad_pcb'
+    - 'PCB/**.kicad_sch'
+    - 'PCB/**.kicad_pcb'
     - '.github/workflows/pcb-artifacts.yaml'
   workflow_dispatch:
 
