@@ -59,7 +59,7 @@ jobs:
         echo "COMMIT = ${COMMIT}"
         sed -i "s!<<hash>>!BETA-${COMMIT}!" ./PCB/OeMRFM69_USB.kicad_pcb
 
-    - name: Remove existing export folder
+    - name: Remove any existing export folder
       run: |
         rm -rf ./PCB/export/
 
@@ -71,23 +71,17 @@ jobs:
         schema: './PCB/OeMRFM69_USB.kicad_sch'
         board: './PCB/OeMRFM69_USB.kicad_pcb'
 
-    # Splitting this out to ensure a failed kibot run will mark a check as failed.
-    - name: Prepare artifact 1
-      run: |
-        cd ./PCB/export/gerbers
-        zip -r -j ../OeMRFM69_USB_gerbers.zip *
-
-    - name: Remove gerber folder
-      run: |
-        rm -rf ./PCB/export/gerbers
-        ls -R
-
     - name: upload artifacts - gerbers
       uses: actions/upload-artifact@v3
       with:
         name: OeMRFM69_USB_gerbers
         path: |
-          ./PCB/export/OeMRFM69_USB_gerbers.zip
+          ./PCB/export/gerbers
+
+    - name: Remove gerber folder
+      run: |
+        rm -rf ./PCB/export/gerbers
+        ls -R
 
     - name: upload artifacts 2
       uses: actions/upload-artifact@v3
